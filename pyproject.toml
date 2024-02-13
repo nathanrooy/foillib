@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+profile = "black"
+
+[project]
+name = "foillib"
+authors = [{name = "Nathan A. Rooy", email = "nathanrooy@gmail.com"}]
+description = "A small utility for generating airfoils"
+license = {file = "LICENSE"}
+readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Utilities",
+]
+dynamic = ["version"]
+requires-python = ">=3.7"
+keywords = ["aerodynamics", "airfoil", "naca", "bezier", "parametric"]
+
+[project.urls]
+Code = "https://github.com/nathanrooy/foillib"
+Issues = "https://github.com/nathanrooy/foillib/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "foillib.__about__.__version__"}
