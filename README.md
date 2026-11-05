@@ -1,10 +1,10 @@
 # FoilLib
 
-[![PyPi Version](https://img.shields.io/pypi/v/foillib.svg?style=flat-square)](https://pypi.org/project/pyfoobar/)
+[![PyPi Version](https://img.shields.io/pypi/v/foillib.svg?style=flat-square)](https://pypi.org/project/foillib/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/foillib.svg?style=flat-square)](https://pypi.org/project/foillib/)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/nathanrooy/foillib/tests.yaml?branch=main&style=flat-square)](https://github.com/nathanrooy/foillib/actions)
 [![codecov](https://img.shields.io/codecov/c/github/nathanrooy/foillib.svg?style=flat-square)](https://codecov.io/gh/nathanrooy/foillib)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json&style=flat-square)](https://github.com/astral-sh/ruff)
 
 I finally started to consolidate all my airfoil scripts...
 
@@ -55,6 +55,7 @@ A basic symmetrical NACA airfoil:
 
 ```Python
 import foillib as fl
+
 x, y = fl.naca("0012")
 ```
 
@@ -64,6 +65,7 @@ A cambered NACA airfoil with a non-finite trailing edge:
 
 ```Python
 import foillib as fl
+
 x, y = fl.naca("2312", finite_te=False)
 ```
 
@@ -72,11 +74,12 @@ x, y = fl.naca("2312", finite_te=False)
 ### 5-Series
 
 
-Supports non-reflexed airfoils from `210` through `250` and non-reflexed airfoils from `221` through `251`.
+Supports non-reflexed airfoils from `210` through `250` and reflexed airfoils from `221` through `251`.
 
 
 ```Python
 import foillib as fl
+
 x, y = fl.naca("24012")
 ```
 
@@ -110,7 +113,7 @@ import foillib as fl
 # control points specified from LE -> TE
 cps_top = [(0.19, 0.17), (0.5, 0.2), (0.81, 0.1)]
 cps_bot = [(0.085, -0.02), (0.3, 0.06), (0.6, 0.08)]
-cps_le  = [0.05, 0.02]
+cps_le = [0.05, 0.02]
 
 x, y = fl.bezier(cps_le, cps_top, cps_bot)
 ```
@@ -128,7 +131,7 @@ As stated previously, if a symmetrical airfoil is desired, simply don't specify 
 import foillib as fl
 
 cps_top = [(0.19, 0.17), (0.5, 0.2), (0.81, 0.1)]
-cps_le  = [0.05]
+cps_le = [0.05]
 
 x, y = fl.bezier(cps_le, cps_top)
 ```

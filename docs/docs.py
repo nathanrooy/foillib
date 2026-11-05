@@ -1,6 +1,6 @@
-import foillib as fl
 import matplotlib.pyplot as plt
 
+import foillib as fl
 
 LW = 1
 COLOR = "b"

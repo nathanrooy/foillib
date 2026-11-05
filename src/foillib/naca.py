@@ -1,5 +1,3 @@
-from typing import List
-
 from ._naca4 import naca4
 from ._naca5 import naca5, prk1
 from ._types import SpacingMethod
@@ -7,12 +5,12 @@ from ._types import SpacingMethod
 
 def naca(
     digits: str, npts=100, finite_te=True, spacing_method: SpacingMethod = "cosine"
-) -> List[tuple]:
+) -> list[tuple]:
     has_dash = "-" in digits
     assert len(digits) in [4, 5]
 
     # naca-4 series airfoils
-    if len(digits) == 4 and has_dash == False:
+    if len(digits) == 4 and not has_dash:
         return naca4(
             int(digits[0]),
             int(digits[1]),
@@ -23,10 +21,10 @@ def naca(
         )
 
     # naca-5 series airfoils
-    if len(digits) == 5 and has_dash == False:
-        assert (
-            digits[:3] in prk1[0].keys() or digits[:3] in prk1[1].keys()
-        ), "Unsupported design"
+    if len(digits) == 5 and not has_dash:
+        assert digits[:3] in prk1[0].keys() or digits[:3] in prk1[1].keys(), (
+            "Unsupported design"
+        )
         assert digits[2] in [
             "0",
             "1",

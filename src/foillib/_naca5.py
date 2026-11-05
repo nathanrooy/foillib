@@ -1,10 +1,8 @@
 from math import atan, cos, pow, sin
-from typing import List, Tuple
 
 from ._common import spacing
 from ._naca_common import thickness_distribution
 from ._types import SpacingMethod
-
 
 # tabulated camber line parameters
 prk1 = {
@@ -13,15 +11,15 @@ prk1 = {
         "210": {"p": 0.05, "r": 0.0580, "k1": 361.40},
         "220": {"p": 0.10, "r": 0.1260, "k1": 51.640},
         "230": {"p": 0.15, "r": 0.2025, "k1": 15.957},
-        "240": {"p": 0.20, "r": 0.2900, "k1":  6.643},
-        "250": {"p": 0.25, "r": 0.3910, "k1":  3.230},
+        "240": {"p": 0.20, "r": 0.2900, "k1": 6.643},
+        "250": {"p": 0.25, "r": 0.3910, "k1": 3.230},
     },
     # reflexed
     1: {
         "221": {"p": 0.05, "r": 0.0580, "k1": 361.40, "k2/k1": 0.000764},
         "231": {"p": 0.15, "r": 0.2170, "k1": 15.793, "k2/k1": 0.00677},
-        "241": {"p": 0.20, "r": 0.3180, "k1":  6.520, "k2/k1": 0.0303},
-        "251": {"p": 0.25, "r": 0.4410, "k1":  3.191, "k2/k1": 0.1355},
+        "241": {"p": 0.20, "r": 0.3180, "k1": 6.520, "k2/k1": 0.0303},
+        "251": {"p": 0.25, "r": 0.4410, "k1": 3.191, "k2/k1": 0.1355},
     },
 }
 
@@ -34,7 +32,7 @@ def naca5(
     npts: int,
     finite_te: bool,
     spacing_method=SpacingMethod,
-) -> List[Tuple]:
+) -> list[tuple]:
     """
     NACA-5 SERIES AIRFOIL -> "LPSXX"
 
@@ -56,13 +54,13 @@ def naca5(
 
     # determine interpolated camberline parameters
     if S == 0:
-        p, r, k1 = (
+        _p, r, k1 = (
             prk1[S][profile]["p"],
             prk1[S][profile]["r"],
             prk1[S][profile]["k1"],
         )
     else:
-        p, r, k1, k2_k1 = (
+        _p, r, k1, k2_k1 = (
             prk1[S][profile]["p"],
             prk1[S][profile]["r"],
             prk1[S][profile]["k1"],
@@ -72,7 +70,6 @@ def naca5(
     # determine mean camber line (yc), camber gradient (dyc_dx), and theta
     xu, yu, xl, yl = [0] * len(xc), [0] * len(xc), [0] * len(xc), [0] * len(xc)
     for i, x in enumerate(xc):
-
         # non-reflex (standard)
         if S == 0:
             if x <= r:

@@ -1,6 +1,4 @@
 from math import pow, sqrt
-from typing import List
-
 
 # naca constants
 A0 = 0.2969
@@ -9,7 +7,8 @@ A2 = -0.3516
 A3 = 0.2843
 
 
-a0123 = lambda x: A0 * sqrt(x) + A1 * x + A2 * pow(x, 2) + A3 * pow(x, 3)
+def a0123(x: float) -> float:
+    return A0 * sqrt(x) + A1 * x + A2 * pow(x, 2) + A3 * pow(x, 3)
 
 
 def a4(finite_te: bool) -> float:
@@ -19,7 +18,7 @@ def a4(finite_te: bool) -> float:
         return -0.1036
 
 
-def thickness_distribution(t: float, finite_te: bool, xc: list) -> List[float]:
+def thickness_distribution(t: float, finite_te: bool, xc: list) -> list[float]:
     """
     NACA-4 and 5 series airfoils share the same thickness distribution (y_t)
     """

@@ -1,5 +1,4 @@
-from math import atan, cos, pow, sin, sqrt
-from typing import List, Tuple
+from math import atan, cos, pow, sin
 
 from ._common import spacing
 from ._naca_common import thickness_distribution
@@ -8,7 +7,7 @@ from ._types import SpacingMethod
 
 def naca4(
     M: int, P: int, XX: int, npts: int, finite_te: bool, spacing_method: SpacingMethod
-) -> List[Tuple]:
+) -> list[tuple]:
     """
     NACA-4 SERIES AIRFOIL -> "MPXX"
 

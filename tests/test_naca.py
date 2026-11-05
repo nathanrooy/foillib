@@ -1,9 +1,9 @@
 import unittest
+
 import foillib as fl
 
 
 class test_naca_4(unittest.TestCase):
-
     def setUp(self):
         self.x, self.y = fl.naca("0012")
 
@@ -19,7 +19,6 @@ class test_naca_4(unittest.TestCase):
 
 
 class test_naca_5(unittest.TestCase):
-
     def setUp(self):
         self.x, self.y = fl.naca("24012")
 

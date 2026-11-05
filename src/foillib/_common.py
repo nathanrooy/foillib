@@ -1,10 +1,9 @@
 from math import cos, pi
-from typing import List
 
 from ._types import SpacingMethod
 
 
-def spacing(npts: int, spacing_method: SpacingMethod = "cosine") -> List[float]:
+def spacing(npts: int, spacing_method: SpacingMethod = "cosine") -> list[float]:
     """
     - Starts at the LE -> TE
     - The leading edge point (0,0) is not included.

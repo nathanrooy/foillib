@@ -1,5 +1,4 @@
-from math import cos, sin, sqrt
-from typing import List, Tuple
+from math import sqrt
 
 from ._common import spacing
 from ._types import SpacingMethod
@@ -29,7 +28,7 @@ def b2_find_t(x: list, a: float, b: float, c: float) -> float:
     return max(min(1, t), 0)
 
 
-def b2_segment(x: list, p0: list, p1: list, p2: list) -> List[Tuple]:
+def b2_segment(x: list, p0: list, p1: list, p2: list) -> list[tuple]:
     """
     Single quadratic segment
 
@@ -48,12 +47,13 @@ def b2_segment(x: list, p0: list, p1: list, p2: list) -> List[Tuple]:
     return list(zip(*[x_seg, y]))
 
 
-def quadratic_bezier(x: List[float], cps: List[Tuple]) -> List[Tuple]:
+def quadratic_bezier(x: list[float], cps: list[tuple]) -> list[tuple]:
     """
     Piecewise Quadratic Bezier Curve
 
     x   : x-coordinate positions along chord (le -> te).
-    cps : list of tuples representing the bezier control points [(x1,y1), (x2,y2),...,(xn,yn)s]
+    cps : list of tuples representing the bezier control points
+          [(x1,y1), (x2,y2),...,(xn,yn)]
     """
 
     # compute the first segment
@@ -79,16 +79,16 @@ def quadratic_bezier(x: List[float], cps: List[Tuple]) -> List[Tuple]:
 
 
 def bezier(
-    cpts_le: List,
-    cpts_top: List[Tuple],
-    cpts_bot: List[Tuple] = None,
+    cpts_le: list,
+    cpts_top: list[tuple],
+    cpts_bot: list[tuple] | None = None,
     te: float = 0.00252,
     npts: int = 100,
     spacing_method: SpacingMethod = "cosine",
-) -> List[Tuple]:
+) -> list[tuple]:
     """
-    The Bezier airfoil is comprised of two composite (piecewise) Bezier curves connected at the
-    leading edge with G1 (tangent) continuity.
+    The Bezier airfoil is comprised of two composite (piecewise) Bezier curves
+    connected at the leading edge with G1 (tangent) continuity.
 
     cps_le  :
     cps_top :
@@ -104,17 +104,18 @@ def bezier(
     for v in cpts_le:
         assert v > 0, "leading edge radius must be defined with positive values"
     for i in range(len(cpts_top) - 1):
-        assert (
-            cpts_top[i][0] < cpts_top[i + 1][0]
-        ), "top surface control point x-coordinates must be monotonically increasing"
-    if cpts_bot != None:
-        assert (
-            len(cpts_bot) >= 2
-        ), "not enough control points specified for bottom surface..."
+        assert cpts_top[i][0] < cpts_top[i + 1][0], (
+            "top surface control point x-coordinates must be monotonically increasing"
+        )
+    if cpts_bot is not None:
+        assert len(cpts_bot) >= 2, (
+            "not enough control points specified for bottom surface..."
+        )
         for i in range(len(cpts_bot) - 1):
-            assert (
-                cpts_bot[i][0] < cpts_bot[i + 1][0]
-            ), "bottom surface control point x-coordinates must be monotonically increasing"
+            assert cpts_bot[i][0] < cpts_bot[i + 1][0], (
+                "bottom surface control point x-coordinates must be "
+                "monotonically increasing"
+            )
 
     # generate chord positions
     xc = spacing(npts, spacing_method)
@@ -128,7 +129,7 @@ def bezier(
     xy_top = quadratic_bezier(xc, cpts_top)
 
     # bottom surface
-    if cpts_bot != None:
+    if cpts_bot is not None:
         cpts_bot = [(0, 0), (0, -cpts_le[1])] + cpts_bot + [(1, -te / 2)]
         xy_bot = quadratic_bezier(xc, cpts_bot)
     else:
