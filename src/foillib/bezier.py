@@ -16,16 +16,14 @@ def b2(t: float, p0: float, p1: float, p2: float) -> float:
     return p1 + (p0 - p1) * (1 - t) ** 2 + (p2 - p1) * t**2
 
 
-def b2_find_t(x: list, a: float, b: float, c: float) -> float:
+def b2_find_t(x: float, a: float, b: float, c: float) -> float:
     """
     Find the roots: given x, solve for t
     """
-    d = abs(c * x + x * a - 2 * x * b + b**2 - c * a)
-    if a + c != 2 * b:
-        t = (a - b + sqrt(d)) / (c + a - 2 * b)
-    elif a == 2 * b - c and b != c:
-        t = -(-2 * b + c + x) / (2 * (b - c))
-    return max(min(1, t), 0)
+    ba = b - a
+    d = max(0.0, ba * ba + (a - 2.0 * b + c) * (x - a))
+    t = (x - a) / (ba + sqrt(d))
+    return max(0.0, min(1.0, t))
 
 
 def b2_segment(x: list, p0: list, p1: list, p2: list) -> list[tuple]:
